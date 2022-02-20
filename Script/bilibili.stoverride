@@ -1,0 +1,16 @@
+name: B站布局修改
+
+http:
+  mitm:
+    - "app.bilibili.com"
+  script:
+    - match: ^https://app\.bilibili\.com/x/v2/account/mine\?access_key
+      name: whole
+      type: response
+      require-body: true
+      timeout: 10
+      
+script-providers:
+  whole:
+    url: https://raw.githubusercontent.com/yjqiang/surge_scripts/main/scripts/bilibili/bilibili_mine.js
+    interval: 3600
