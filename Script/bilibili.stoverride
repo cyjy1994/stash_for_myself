@@ -5,12 +5,20 @@ http:
     - "app.bilibili.com"
   script:
     - match: ^https://app\.bilibili\.com/x/v2/account/mine\?access_key
+      name: my
+      type: response
+      require-body: true
+      timeout: 10
+    - match: ^https://app\.bilibili\.com/x/resource/show/tab(/v2)?\?access_key
       name: whole
       type: response
       require-body: true
       timeout: 10
       
 script-providers:
-  whole:
+  my:
     url: https://raw.githubusercontent.com/yjqiang/surge_scripts/main/scripts/bilibili/bilibili_mine.js
+    interval: 3600
+  whole:
+    url: https://raw.githubusercontent.com/yjqiang/surge_scripts/main/scripts/bilibili/bilibili_tab.js
     interval: 3600
