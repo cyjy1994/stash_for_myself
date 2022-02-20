@@ -4,11 +4,13 @@ http:
   mitm:
     - "app.bilibili.com"
   script:
+// “我的”的修改  
     - match: ^https://app\.bilibili\.com/x/v2/account/mine\?access_key
       name: mine
       type: response
       require-body: true
       timeout: 10
+// 整体栏的布局修改(包括“首页”右上角、下边 tab 等)   
     - match: ^https://app\.bilibili\.com/x/resource/show/tab(/v2)?\?access_key
       name: tab
       type: response
@@ -16,6 +18,12 @@ http:
       timeout: 10
     - match: ^https://app\.bilibili\.com/x/v2/feed/index(/story)?\?access_key
       name: feed
+      type: response
+      require-body: true
+      timeout: 10
+// 播放器广告 
+    - match: ^https://app\.bilibili\.com/bilibili\.app\.view\.v1\.View/View$
+      name: player_AD
       type: response
       require-body: true
       timeout: 10
@@ -29,4 +37,7 @@ script-providers:
     interval: 3600
   feed:
     url: https://raw.githubusercontent.com/yjqiang/surge_scripts/main/scripts/bilibili/bilibili_feed.js
+    interval: 3600
+  player_AD:
+    url: https://raw.githubusercontent.com/yjqiang/surge_scripts/main/scripts/bilibili/bilibili_view.js
     interval: 3600
